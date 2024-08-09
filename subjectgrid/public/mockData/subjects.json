@@ -1,0 +1,12 @@
+[
+    { "id": 1, "name": "John Doe", "age": 30, "gender": "Male", "diagnosisDate": "2023-01-01", "status": "Active" },
+    { "id": 2, "name": "Jane Smith", "age": 25, "gender": "Female", "diagnosisDate": "2022-05-15", "status": "Inactive" },
+    { "id": 3, "name": "Alice Johnson", "age": 40, "gender": "Female", "diagnosisDate": "2021-09-20", "status": "Active" },
+    { "id": 4, "name": "Bob Brown", "age": 35, "gender": "Male", "diagnosisDate": "2022-11-02", "status": "Inactive" },
+    { "id": 5, "name": "Carol White", "age": 28, "gender": "Female", "diagnosisDate": "2023-03-10", "status": "Active" },
+    { "id": 6, "name": "David Green", "age": 50, "gender": "Male", "diagnosisDate": "2021-07-05", "status": "Inactive" },
+    { "id": 7, "name": "Eve Black", "age": 45, "gender": "Female", "diagnosisDate": "2020-12-12", "status": "Active" },
+    { "id": 8, "name": "Frank Blue", "age": 32, "gender": "Male", "diagnosisDate": "2022-08-25", "status": "Inactive" },
+    { "id": 9, "name": "Grace Pink", "age": 37, "gender": "Female", "diagnosisDate": "2023-05-30", "status": "Active" },
+    { "id": 10, "name": "Henry Purple", "age": 29, "gender": "Male", "diagnosisDate": "2021-06-18", "status": "Inactive" }
+]
