@@ -15,7 +15,7 @@ interface Subject {
 export default async function handler(req: NextApiRequest,res: NextApiResponse){
     switch(req.method){
         case "GET":{
-            const {sortBy, sortOrder, gender, status} = req.query;
+            const {sortBy, sortOrder, gender, status, date} = req.query;
 
             const jsonDirectory = path.join(process.cwd(), 'public', 'mockData');
             const fileContents = await fs.readFile(jsonDirectory + '/subjects.json', 'utf8');
@@ -27,6 +27,9 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse){
             }
             if (status) {
             subjects = subjects.filter((subject) => subject.status === status);
+            }
+            if (date) {
+                subjects = subjects.filter((subject) => subject.diagnosisDate == date);
             }
             if (sortBy) {
                 subjects = subjects.sort((a: any, b: any) => {
@@ -41,7 +44,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse){
             res.status(200).json(subjects);
         }
         case "POST": {
-            
+
         }
     }
 }

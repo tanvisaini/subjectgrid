@@ -12,9 +12,6 @@
   --background-end-rgb: 255, 255, 255;
 } */
 
-body {
-  padding:1rem;
-}
 
 /* @layer utilities {
   .text-balance {
