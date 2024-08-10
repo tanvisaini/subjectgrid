@@ -52,14 +52,16 @@ const SubjectGrid = () => {
 
   return (
     <div>
-      <h1 className="text-3xl flex justify-center"> SUBJECT LIST </h1>
-      <Button onClick={() => {setGender("Female")}}> Female </Button>
-      <Button onClick={() => {setGender("Male")}}> Male </Button>
-      <Select label="sort by" 
-              placeholder="pick value" 
-              data={['Age', 'Diagnosis Date']} 
-              value={sortBy ? sortBy.value : null}
-              onChange={(_value, option) => setSortBy(_value)} />
+      <h1 className="text-3xl font-poppins p-2 flex justify-center"> Subject List </h1>
+      <div class="flex justify-end"> 
+        <Button className="mx-2" onClick={() => {setGender("Female")}}> Female </Button>
+        <Button className="mx-2" onClick={() => {setGender("Male")}}> Male </Button>
+        <Select className="mx-2" label="sort by" 
+                placeholder="pick value" 
+                data={['Age', 'Diagnosis Date']} 
+                value={sortBy ? sortBy.value : null}
+                onChange={(_value, option) => setSortBy(_value)} />
+      </div>
       <Table verticalSpacing="sm" highlightOnHover>
         <Table.Thead>
           <Table.Tr>

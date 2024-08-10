@@ -8,7 +8,12 @@ const config: Config = {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        poppins:['Poppins'],
+        radio:['Radio Canada Big'],
+      },
+    },
   },
   plugins: [],
 }

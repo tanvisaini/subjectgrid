@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Radio+Canada+Big&display=swap');
+
 @layer tailwind {
   @tailwind base;
 }
 @tailwind components;
 @tailwind utilities;
-
 
 /* :root {
   --foreground-rgb: 0, 0, 0;
@@ -13,7 +14,6 @@
 
 body {
   padding:1rem;
-  background-color: aqua;
 }
 
 /* @layer utilities {

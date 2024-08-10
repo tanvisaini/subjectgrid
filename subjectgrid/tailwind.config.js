@@ -6,7 +6,12 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        poppins:['Poppins'],
+        radio:['Radio Canada Big'],
+      },
+    },
   },
   plugins: [],
 }
