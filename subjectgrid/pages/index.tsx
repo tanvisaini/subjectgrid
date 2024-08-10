@@ -1,11 +1,12 @@
-import SubjectGrid from './components/SubjectGrid.tsx';
-
+import SubjectGrid from './components/SubjectGrid';
+import Header from './components/Header';
 
 export default function Home() {
 
   return (
-    <main> <h1> hello world </h1>
-    <SubjectGrid />
+    <main>
+      <Header />
+      <SubjectGrid />
      </main>
   );
-}
+};

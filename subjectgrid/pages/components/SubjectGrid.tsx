@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Th, Td, Tr, Thead, Tbody, Select } from '@mantine/core';
+import { Table, Button, Select } from '@mantine/core';
+import {useDisclosure} from '@mantine/hooks';
 
 interface Subject {
   id: number;
@@ -15,32 +16,63 @@ interface Subject {
 const SubjectGrid = () => {
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
+  const [gender, setGender] = useState("");
+  const [status, setStatus] = useState("");
+  const [sortBy, setSortBy] = useState("");
+  const [checked, {toggle}] = useDisclosure(false);
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
-    fetch('/api/subjects')
+    const query = new URLSearchParams();
+    if (gender) query.append('gender', gender);
+    if (sortBy) query.append('sortBy' , sortBy);
+    fetch(`/api/subjects?${query.toString()}`)
     .then((response) => response.json())
     .then((data) => {
       setSubjects(data);
       setLoading(false);
+      setReset(false);
     })
     .catch((error) => {
       console.error('error fetching subjects:', error);
       setLoading(false);
     })
-  }, []);
+  }, [gender, sortBy, reset]);
 
-  if (loading) return <div> loading.. </div>;
+  if (loading) return <div>loading...</div>;
+
+  const rows = subjects.map((subject) => (
+    <Table.Tr key={subject.id} >
+      <Table.Td>{subject.name}</Table.Td>
+      <Table.Td>{subject.age}</Table.Td>
+      <Table.Td>{subject.diagnosisDate}</Table.Td>
+      <Table.Td>{subject.status}</Table.Td>
+    </Table.Tr>
+  ));
 
   return (
-    <div> 
-      <h1> subjects: </h1>
-    {subjects.map(subject => (
-      <h1 key={subject.id}>{subject.name}</h1>
-    ))}
+    <div>
+      <h1 className="text-3xl flex justify-center"> SUBJECT LIST </h1>
+      <Button onClick={() => {setGender("Female")}}> Female </Button>
+      <Button onClick={() => {setGender("Male")}}> Male </Button>
+      <Select label="sort by" 
+              placeholder="pick value" 
+              data={['Age', 'Diagnosis Date']} 
+              value={sortBy ? sortBy.value : null}
+              onChange={(_value, option) => setSortBy(_value)} />
+      <Table verticalSpacing="sm" highlightOnHover>
+        <Table.Thead>
+          <Table.Tr>
+            <Table.Th>Name</Table.Th>
+            <Table.Th>Age</Table.Th>
+            <Table.Th>Diagnosis Date</Table.Th>
+            <Table.Th>Status</Table.Th>
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>{rows}</Table.Tbody>
+      </Table>
     </div>
-
   );
-
 };
 
 export default SubjectGrid;
