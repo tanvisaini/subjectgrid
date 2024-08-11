@@ -15,7 +15,7 @@ interface Subject {
 export default async function handler(req: NextApiRequest,res: NextApiResponse){
     switch(req.method){
         case "GET":{
-            const {sortBy, sortOrder, gender, status, date} = req.query;
+            const {sortBy, sortOrder, gender, status, date, searchTerm} = req.query;
 
             const jsonDirectory = path.join(process.cwd(), 'public', 'mockData');
             const fileContents = await fs.readFile(jsonDirectory + '/subjects.json', 'utf8');
@@ -30,6 +30,11 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse){
             }
             if (date) {
                 subjects = subjects.filter((subject) => subject.diagnosisDate == date);
+            }
+            if (searchTerm) {
+                subjects = subjects.filter((subject) =>
+                  subject.name.toLowerCase().includes((searchTerm as string).toLowerCase())
+                );
             }
             if (sortBy) {
                 subjects = subjects.sort((a: any, b: any) => {

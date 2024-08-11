@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 const Header = () => {
     return (
-        <div className="flex font-radio bg-slate-300 p-5 justify-between flex-row ">
-            <Image src="/vial-logo.svg" width={100} height={100} alt="vial logo" />
-            <p className="font-radio text-2xl mt-2"> HOME </p>
+        <div className="flex font-radio p-5 flex-row">
+            <Image src="/vial-logo.svg" width={80} height={80} alt="vial logo" />
+            <p className="font-poppins text-lg ml-2 mt-2"> Subject List </p>
         </div>
     );
 };
