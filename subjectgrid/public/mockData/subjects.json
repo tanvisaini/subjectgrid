@@ -10,7 +10,7 @@
     { "id": "b4e6-41d8-a7f1-9e2c4", "name": "Grace Pink", "age": 37, "gender": "Female", "diagnosisDate": "2023-05-30", "status": "Enrolled" },
     { "id": "b9d2-4b3f-6a4e-7f8d1", "name": "Henry Purple", "age": 29, "gender": "Male", "diagnosisDate": "2021-06-18", "status": "Completed" },
     { "id": "c5d4-43e7-b9f8-1d2e3", "name": "Iris Gold", "age": 31, "gender": "Female", "diagnosisDate": "2024-02-12", "status": "Screening" },
-    { "id": "d6f8-51c3-4a7e-2b9d5", "name": "Jack Silver", "age": 42, "gender": "Male", "diagnosisDate": "2024-01-23", "status": "Screening" },
+    { "id": "d6f8-51c3-4a7e-2b9d5", "name": "Jack Johnson", "age": 42, "gender": "Male", "diagnosisDate": "2024-01-23", "status": "Screening" },
     { "id": "e8a1-52d9-b4c6-3f7e4", "name": "Lily Rose", "age": 27, "gender": "Female", "diagnosisDate": "2023-11-18", "status": "Active" },
     { "id": "f2b7-63e4-a8c9-5d6f2", "name": "Mason Grey", "age": 33, "gender": "Male", "diagnosisDate": "2022-07-10", "status": "Completed" },
     { "id": "a3c2-75d1-b9e4-1f8g6", "name": "Nina Blue", "age": 26, "gender": "Female", "diagnosisDate": "2024-03-05", "status": "Enrolled" },
