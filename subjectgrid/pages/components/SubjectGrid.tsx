@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Button, Select, Group, Modal, TextInput, Pagination } from '@mantine/core';
+import { Table, Button, Select, Group, Modal, TextInput, Pagination, Tooltip } from '@mantine/core';
 import { DateInput, DatePickerInput } from '@mantine/dates';
 import { useDisclosure } from '@mantine/hooks';
 import { IconFilter, IconPencilMinus, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
@@ -111,10 +111,15 @@ const SubjectGrid = () => {
               data={['Age', 'Diagnosis Date', 'Name']}
               value={sortBy}
               onChange={(_value, option) => setSortBy(_value)} /> 
+        <Tooltip
+        label={`Sort ${sortOrder === 'asc' ? 'descending' : 'ascending'}`}
+        openDelay={200}
+        withArrow >
         <Button className="mt-6"
             onClick={toggleSortOrder}
             disabled={!sortBy}
-            >{sortOrder === 'desc' ? <IconSortAscending size={18} /> : <IconSortDescending size={18} />}</Button>
+            >{sortOrder === 'asc' ? <IconSortAscending size={18} /> : <IconSortDescending size={18} />}</Button>
+        </Tooltip>
         <Button className="mt-6" 
             leftSection={<IconFilter size={13} />} 
             onClick={open}> <span className="hidden sm:inline"> All Filters </span> </Button>
