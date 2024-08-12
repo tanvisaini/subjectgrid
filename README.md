@@ -36,7 +36,7 @@ This project is hosted on Vercel, providing seamless deployment and excellent pe
 
 ## Assumptions
 
-This application was assumed to be handled by admin within clinical trials so categories such as subjectId were kept on the grid display. 
+This application was assumed to be handled by admin within clinical trials so categories such as subjectId were kept on the grid display. It was also assumed that the static data only contains specific fields such as Subject ID, Name, Age, Gender, Diagnosis Date and Status. This allows for focused development on the application's functionalities. Lastly considering secure biodata, it was assumed that the API could not have any POST, PUT or DELETE endpoints on the database. 
 
 ## Conclusion
 
