@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Table, Button, Select, Group, Modal, TextInput, Pagination } from '@mantine/core';
 import { DateInput, DatePickerInput } from '@mantine/dates';
 import { useDisclosure } from '@mantine/hooks';
-import { IconFilter, IconPencilMinus } from '@tabler/icons-react';
+import { IconFilter, IconPencilMinus, IconSortAscending, IconSortDescending } from '@tabler/icons-react';
 import { Subject } from '../../types/types';
 
 const SubjectGrid = () => {
@@ -15,6 +15,7 @@ const SubjectGrid = () => {
   const [date, setDate] = useState<Date | null>(null);
   const [status, setStatus] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [opened, {open, close}] = useDisclosure(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -35,6 +36,7 @@ const SubjectGrid = () => {
       if (finalSearch) query.append('searchTerm', finalSearch);
       if (date) query.append('date', date.toISOString().split('T')[0]);
       if (sortBy) query.append('sortBy', sortBy);
+      if (sortOrder) query.append('sortOrder', sortOrder);
 
       try {
         const response = await axios.get(`/api/subjects?${query.toString()}`);
@@ -48,7 +50,7 @@ const SubjectGrid = () => {
     };
 
     fetchSubjects();
-  }, [gender, date, sortBy, finalSearch, status, currentPage]);
+  }, [gender, date, sortBy, sortOrder, finalSearch, status, currentPage]);
 
   if (loading) return <div>loading...</div>;
 
@@ -60,7 +62,7 @@ const SubjectGrid = () => {
     }; 
   };
 
-  //subjectgrid setup
+  //subjectgrid data setup
   const rows = subjects.map((subject) => (
     <Table.Tr key={subject.id} >
       <Table.Td>{subject.id}</Table.Td>
@@ -83,9 +85,15 @@ const SubjectGrid = () => {
     setCurrentPage(1);
   };
 
+  //sets sortOrder
+  const toggleSortOrder = () => {
+    setSortOrder(prevOrder => prevOrder === 'asc' ? 'desc' : 'asc');
+  };
+
   return (
-    <div className="mx-24 ">
-      {/* interactive filtering buttons */}
+    <div className="md:mx-24 mx-4 mt-4">
+
+    {/* interactive filtering buttons */}
       <Group className="m-2" justify="space-between" preventGrowOverflow={false} grow wrap="nowrap" >
         <TextInput
             placeholder="Search by Name"
@@ -100,41 +108,51 @@ const SubjectGrid = () => {
               placeholder="Sort by Category" 
               searchable
               nothingFoundMessage="Nothing found..."
-              data={['Age', 'Diagnosis Date', 'Name']} 
+              data={['Age', 'Diagnosis Date', 'Name']}
               value={sortBy}
               onChange={(_value, option) => setSortBy(_value)} /> 
-        <Button className="mt-6" leftSection={<IconFilter size={13} />} onClick={open}> All Filters </Button>
-        <Button leftSection={<IconPencilMinus size={13} />} onClick={handleClear} className="mt-6 " >  Clear </Button> 
+        <Button className="mt-6"
+            onClick={toggleSortOrder}
+            disabled={!sortBy}
+            >{sortOrder === 'desc' ? <IconSortAscending size={18} /> : <IconSortDescending size={18} />}</Button>
+        <Button className="mt-6" 
+            leftSection={<IconFilter size={13} />} 
+            onClick={open}> <span className="hidden sm:inline"> All Filters </span> </Button>
+        <Button 
+            leftSection={<IconPencilMinus size={13} />} 
+            onClick={handleClear} className="mt-6" >  <span className="hidden sm:inline"> Clear </span> </Button> 
       </Group>
-        <Modal opened={opened} onClose={close} closeOnClickOutside transitionProps={{ transition: 'rotate-left' }} centered title="Filter Subjects">
-          <Select 
-            label="Gender"
-            placeholder="Select Gender Filter"
-            value={gender}
-            searchable
-            nothingFoundMessage="Nothing found..."
-            onChange={(_value, option) => setGender(_value)} 
-            data={[{value:'', label: 'All'}, 'Female', 'Male', 'Unknown']} />
-          <Select 
-            label="Status"
-            placeholder="Select Status Filter"
-            value={status}
-            searchable
-            nothingFoundMessage="Nothing found..."
-            onChange={(_value, option) => setStatus(_value)}
-            data={[
-              {value:'', label:'All'}, 
-              'Screening', 'Enrolled', 'Active', 
-              'Withdrawn', 'Discontinued', 'Randomized', 'Completed']} />
-          <DatePickerInput clearable 
-            label="Date"
-            placeholder="Select Date Filter"
-            valueFormat="YYYY-MM-DD"
-            value={date}
-            onChange={(value) => setDate(value)} />
-        </Modal>
+
+      <Modal opened={opened} onClose={close} closeOnClickOutside transitionProps={{ transition: 'rotate-left' }} centered title="Filter Subjects">
+        <Select 
+          label="Gender"
+          placeholder="Select Gender Filter"
+          value={gender}
+          searchable
+          nothingFoundMessage="Nothing found..."
+          onChange={(_value, option) => setGender(_value)} 
+          data={[{value:'', label: 'All'}, 'Female', 'Male', 'Unknown']} />
+        <Select 
+          label="Status"
+          placeholder="Select Status Filter"
+          value={status}
+          searchable
+          nothingFoundMessage="Nothing found..."
+          onChange={(_value, option) => setStatus(_value)}
+          data={[
+            {value:'', label:'All'}, 
+            'Screening', 'Enrolled', 'Active', 
+            'Withdrawn', 'Discontinued', 'Randomized', 'Completed']} />
+        <DatePickerInput clearable 
+          label="Date"
+          placeholder="Select Date Filter"
+          valueFormat="YYYY-MM-DD"
+          value={date}
+          onChange={(value) => setDate(value)} />
+      </Modal>
+
       {/* subject grid display and pagination */}
-      <div className="flex border mb-5 rounded-lg">
+      <div className="flex mb-5 border rounded-lg overflow-auto rounded">
         <Table verticalSpacing="sm" highlightOnHover>
           <Table.Thead>
             <Table.Tr>
@@ -149,12 +167,14 @@ const SubjectGrid = () => {
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </div>
-      <Pagination
+
+      <Pagination 
         total={totalPages}
         value={currentPage}
         onChange={setCurrentPage}
-        className="mt-4"
+        className="my-4"
       />
+
     </div>
   );
 };

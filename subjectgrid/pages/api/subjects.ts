@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse){
 
         let subjects: Subject[] = JSON.parse(fileContents);
 
-        //filtering json data
+        // filtering json data
         if (gender) {
             subjects = subjects.filter((subject) => subject.gender === gender);
         }
@@ -35,12 +35,21 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse){
                 subject.name.toLowerCase().includes((searchTerm as string).toLowerCase())
             );
         }
-        if (sortBy) { //potential to add asc and desc customization
+        if (sortBy && sortOrder=='asc') { //asc customization
             subjects = subjects.sort((a: any, b: any) => {
             if (sortBy === 'Name') return a.name.localeCompare(b.name);
             if (sortBy === 'Age') return a.age - b.age;
             if (sortBy === 'Diagnosis Date')
                 return new Date(a.diagnosisDate).getTime() - new Date(b.diagnosisDate).getTime();
+            return 0;
+            });
+        }
+        if (sortBy && sortOrder=='desc') { //desc customization
+            subjects = subjects.sort((a: any, b: any) => {
+            if (sortBy === 'Name') return b.name.localeCompare(a.name);
+            if (sortBy === 'Age') return b.age - a.age;
+            if (sortBy === 'Diagnosis Date')
+                return new Date(b.diagnosisDate).getTime() - new Date(a.diagnosisDate).getTime();
             return 0;
             });
         }
