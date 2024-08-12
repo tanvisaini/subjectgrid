@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse){
         try {
             fileContents = await fs.readFile(jsonDirectory + '/subjects.json', 'utf8');
         } catch (error) {
-            return res.status(404).json({ error: 'API not found' });
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
 
         let subjects: Subject[] = JSON.parse(fileContents);
