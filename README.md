@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project is a dynamic Subjects Dashboard built with Next.js, and Typescript. It features a responsive interface for managing and viewing subject data in a clinical or research setting.
+This project is a web-based dynamic grid display developed using Next.js with Typescript and is styled with Mantine and Tailwind CSS. This application fetches and displays static subject data through a mocked API call using Next.js API routes. Additionally, there is a testing suite for the API handler ensuring secure data handling and error management. The goal here was to create a user-friendly interface with custom filtering and sorting capability.  
 
 ## Key Features
 
@@ -12,25 +12,32 @@ This project is a dynamic Subjects Dashboard built with Next.js, and Typescript.
 - Search functionality on data
 - Next.js API route integration
 
-## Technologies Used
+## Technologies Stack
 
 - **Frontend:**
   - Next.js
   - TypeScript
   - Mantine UI
   - Tailwind CSS
+  - Axios
+  - Jest
+  - Node Mocks HTTP
 
 ## Deployment
 
 This project is hosted on Vercel, providing seamless deployment and excellent performance. https://subjectgrid.vercel.app/
 
-## Installing locally
+## Local Installation and Setup
 
 1. Clone the repository
 2. Install dependencies: `npm install`
 3. Run the development server: `npm run dev`
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## API
+## Assumptions
 
-The project uses a mocked API to simulate backend interactions. In a production environment, this would be replaced with actual API calls to a backend server.
+This application was assumed to be handled by admin within clinical trials so categories such as subjectId were kept on the grid display. 
+
+## Conclusion
+
+This project demonstrates a complete implementation of a subject grid display application with essential features like filtering, sorting and searching. The use of modern web technologies ensure a maintainable and scalable codebase. 
